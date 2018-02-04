@@ -42,3 +42,23 @@ loop1:
 		
 		continue loop2;
 }};
+
+
+for (j=1; j < 5; j++){
+		 for (k=1; k < 5; k++)
+		 	while (i !== i++) for (i=0; i < listLength; i++)
+		 		{			
+	 cardsHtml += "<i id ="+ j + "_" + k +" class = \"card card_down\"" + list_of_cards[i] + "></i>";
+
+	 deck_of_cards.innerHTML = cardsHtml;
+
+ for (j=1; j < 5; j++){
+		 for (k=1; k < 5; k++)
+		 	for (i=0; i < listLength; i++)
+		 		{			
+	 cardsHtml += "<i id ="+ j + "_" + k +" class = \"card card_down\"" + list_of_cards[i] + "></i>";
+
+	 deck_of_cards.innerHTML = cardsHtml;
+		
+		break;
+		
