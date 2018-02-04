@@ -11,34 +11,34 @@ var list_of_cards = [
 
 var i = "";
 var j = "";
+var k = "";
 var deck_of_cards = document.getElementById("deck_of_cards");
 var listLength = list_of_cards.length;
-var HTML =  "<li class=\"card\">";
+var cardsHtml =  "<li class=\"card\">";
 
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+function shuffle(list_of_cards) {
+    var currentIndex = list_of_cards.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = list_of_cards[currentIndex];
+        list_of_cards[currentIndex] = list_of_cards[randomIndex];
+        list_of_cards[randomIndex] = temporaryValue;
     }
 
-    return array;
+    return list_of_cards;
 }
+loop1:
+ for (j=1; j < 5; j++){
+		 loop2:
+		 for (k=1; k < 5; k++)
+		 	loop3:
+		 	for (i=0; i < listLength; i++)
+		 		{			
+	 cardsHtml += "<i id ="+ j + "_" + k +" class = \"card\" ><span class = \"card_down " + list_of_cards[i] + "\">" + "</span></i>";
 
-for (i=0; i < listLength;  i++) {
-		for (j=0; j > 5; j++) {
-			for (k=0; k > 5; k++){
-	HTML += "<i id ="j + "_" + k +"class= card card_down" + list_of_cards[i] + "></i> </li>";
-	deck_of_cards.appendChild(HTML);
-
-}}};	
-
-const card = document.getElementById("1_1");
-
-card.addEventListener('click', function (){
-	card.className.replace("card_down", "card_up");
-})
+	 deck_of_cards.innerHTML = cardsHtml;
+		
+		continue loop2;
+}};
