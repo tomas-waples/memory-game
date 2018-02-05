@@ -1,64 +1,84 @@
-var list_of_cards = [
-	"fa fa-diamond",
-	"fa fa-paper-plane-o",
-	"fa fa-anchor",
-	"fa fa-bolt",
-	"fa fa-cube",
-	"fa fa-leaf",
-	"fa fa-bicycle",
-	"fa fa-bomb"
+var listOfCards = [
+	'1 fa fa-diamond',
+	'2 fa fa-paper-plane-o',
+	'3 fa fa-anchor',
+	'4 fa fa-bolt',
+	'5 fa fa-cube',
+	'6 fa fa-leaf',
+	'7 fa fa-bicycle',
+	'8 fa fa-bomb',
+	'9 fa fa-diamond',
+	'10 fa fa-paper-plane-o',
+	'11 fa fa-anchor',
+	'12 fa fa-bolt',
+	'13 fa fa-cube',
+	'14 fa fa-leaf',
+	'15 fa fa-bicycle',
+	'16 fa fa-bomb',
 ];
 
-var i = "";
-var j = "";
-var k = "";
-var deck_of_cards = document.getElementById("deck_of_cards");
-var listLength = list_of_cards.length;
-var cardsHtml =  "<li class=\"card\">";
+var i = '';
+var j = '';
+var k = '';
+var deckOfCards = document.getElementById('deck_of_cards');
+var listLength = listOfCards.length;
+var cardsHtml =  '';
 
-function shuffle(list_of_cards) {
-    var currentIndex = list_of_cards.length, temporaryValue, randomIndex;
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = list_of_cards[currentIndex];
-        list_of_cards[currentIndex] = list_of_cards[randomIndex];
-        list_of_cards[randomIndex] = temporaryValue;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
 
-    return list_of_cards;
+    return array;
 }
-loop1:
- for (j=1; j < 5; j++){
-		 loop2:
-		 for (k=1; k < 5; k++)
-		 	loop3:
-		 	for (i=0; i < listLength; i++)
-		 		{			
-	 cardsHtml += "<i id ="+ j + "_" + k +" class = \"card\" ><span class = \"card_down " + list_of_cards[i] + "\">" + "</span></i>";
 
-	 deck_of_cards.innerHTML = cardsHtml;
+
+listOfCards=shuffle(listOfCards);
+
+ for (i=0; i < listLength; i++){			
+	 
+	 cardsHtml += '<li class= "card" ><i id ="' + i +'" class = "card_down '+ listOfCards[i] + '"></i></li>';
+
+	 deckOfCards.innerHTML = cardsHtml;
 		
-		continue loop2;
-}};
+}
+
+var card_1 = document.getElementsByClassName('1');
+var card_9 = document.getElementsByClassName('9');
+
+var match_1 = 'closed';
+var match_9 = 'closed';
 
 
-for (j=1; j < 5; j++){
-		 for (k=1; k < 5; k++)
-		 	while (i !== i++) for (i=0; i < listLength; i++)
-		 		{			
-	 cardsHtml += "<i id ="+ j + "_" + k +" class = \"card card_down\"" + list_of_cards[i] + "></i>";
+ function firstFlip(){
+ 	var a = 'card_1';
+ 	var b = '';
 
-	 deck_of_cards.innerHTML = cardsHtml;
+ 	a[0].classList.remove('card_down');
+ 	b = 'open';
+ }
 
- for (j=1; j < 5; j++){
-		 for (k=1; k < 5; k++)
-		 	for (i=0; i < listLength; i++)
-		 		{			
-	 cardsHtml += "<i id ="+ j + "_" + k +" class = \"card card_down\"" + list_of_cards[i] + "></i>";
 
-	 deck_of_cards.innerHTML = cardsHtml;
+ card_1[0].addEventListener('click', firstFlip (card_1, card_9));
+
+card_1[0].addEventListener('click', function(){
+	card_1[0].classList.remove('card_down');
+	match_1 = 'open';});
+
+card_9[0].addEventListener('click', function(){
+			card_9[0].classList.remove('card_down');
+			match_1 = 'open';});
 		
-		break;
-		
+		deckOfCards.addEventListener('click', function(){
+			if(match_1 === match_9 && match_9 === 'open'){
+				card_1[0].removeEventListner('click');}
+			else{
+				card_9[0].classList.add('card_down');
+				match_1 = 'closed';}
+			});

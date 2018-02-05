@@ -3,15 +3,19 @@
 	height: 100px;
 	padding-top: 2%;
 	padding-bottom: 2%;
-	background-image: url("geometry2.png");
+	background-color: lightblue;
 }
 
 .card_down{
 	
-	visibility: hidden;
-}
+	visibility: hidden
 
 .card_up{
 	width: 100px;
 	height: 100px;
+}
+
+.fa {
+	min-width: 500px;
+	min-height: 500px;
 }
