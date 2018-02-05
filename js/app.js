@@ -67,6 +67,8 @@ var match_9 = 'closed';
 
  card_1[0].addEventListener('click', firstFlip (card_1, card_9));
 
+
+
 card_1[0].addEventListener('click', function(){
 	card_1[0].classList.remove('card_down');
 	match_1 = 'open';});
