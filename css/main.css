@@ -4,6 +4,8 @@
 	padding-top: 2%;
 	padding-bottom: 2%;
 	background-color: lightblue;
+	margin-right: 5px;
+
 }
 
 .card_down{
@@ -15,7 +17,12 @@
 	height: 100px;
 }
 
-.fa {
-	min-width: 500px;
-	min-height: 500px;
+.fa-5x {
+	min-width: 150px;
+	min-height: 150px;
+	justify-content: center;
+	align-content: center;
+	content:'';
+ 	clear:both;
+ 	display:block;
 }
