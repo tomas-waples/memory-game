@@ -1,0 +1,2 @@
+let listOfCards= [
+	{id:0, name: "vintage-classic-car_925x.jpg", }]

@@ -1,20 +1,20 @@
 let listOfCards = [
-	'1 fa-5x fa-diamond',
-	'2 fa fa-paper-plane-o',
-	'3 fa fa-anchor',
-	'4 fa fa-bolt',
-	'5 fa fa-cube',
-	'6 fa fa-leaf',
-	'7 fa fa-bicycle',
-	'8 fa fa-bomb',
-	'9 fa fa-diamond',
-	'10 fa fa-paper-plane-o',
-	'11 fa fa-anchor',
-	'12 fa fa-bolt',
-	'13 fa fa-cube',
-	'14 fa fa-leaf',
-	'15 fa fa-bicycle',
-	'16 fa fa-bomb',
+	'1 car',
+	'2 fa fa-paper-plane-o fa-3x',
+	'3 fa fa-anchor fa-3x',
+	'4 fa fa-bolt fa-3x',
+	'5 fa fa-cube fa-3x',
+	'6 fa fa-leaf fa-3x',
+	'7 fa fa-bicycle fa-3x',
+	'8 fa fa-bomb fa-3x',
+	'9 fa car',
+	'10 fa fa-paper-plane-o fa-3x',
+	'11 fa fa-anchor fa-3x',
+	'12 fa fa-bolt fa-3x',
+	'13 fa fa-cube fa-3x',
+	'14 fa fa-leaf fa-3x',
+	'15 fa fa-bicycle fa-3x',
+	'16 fa fa-bomb fa-3x',
 ];
 
 let i = '';
@@ -23,6 +23,8 @@ let k = '';
 let deckOfCards = document.getElementById('deck_of_cards');
 let listLength = listOfCards.length;
 let cardsHtml =  '<div class = "row">';
+let timerValue = '';
+let timer = document.getElementById('timer');
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -38,16 +40,62 @@ function shuffle(array) {
     return array;
 }
 
+deckOfCards.addEventListener('click', function(){
+let startAt = 0;
+let time = '';
+let clockTimer = '';
+
+function pad(num, size) {
+	var s = "0000" + num;
+	return s.substr(s.length - size);
+}
+
+function formatTime(time) {
+	var h = m = s = ms = 0;
+	var newTime = '';
+
+	h = Math.floor( time / (60 * 60 * 1000) );
+	time = time % (60 * 60 * 1000);
+	m = Math.floor( time / (60 * 1000) );
+	time = time % (60 * 1000);
+	s = Math.floor( time / 1000 );
+	ms = time % 1000;
+
+	newTime = pad(h, 2) + ':' + pad(m, 2) + ':' + pad(s, 2) + ':' + pad(ms, 3);
+	return newTime;
+
+timerValue =  '<div> '+ time + ' s </div>';
+
+	timer.innerHTML = timerValue;
+}
+})
 
 listOfCards=shuffle(listOfCards);
 
  for (i=0; i < listLength; i++){			
 	 
-	 cardsHtml += '<div class= "card col-3"><div id ="' + i +'" class = "card_down '+ listOfCards[i] + '"></div></div>';
+	 cardsHtml += '<div class= "card col-3"><div id ="' + i +'" class = "card_down f '+ listOfCards[i] + '"></div></div>';
 
 	 deckOfCards.innerHTML = cardsHtml;
 		
 }
+
+let resetButton = document.getElementById('resetButton');
+
+resetButton.onclick= reloadPage;
+
+function reloadPage(){
+	window.location.reload();
+}
+let starHTML='';
+let numberOfStars= document.getElementById('numberOfStars');
+
+if (k < 60){starsHTML = '<img class= "stars" src="images/star.jpg" alt = "Star 1"><img class= "stars" src="images/star.jpg" alt = "Star 2"><img class= "stars" src="images/star.jpg" alt = "Star3">'
+			numberOfStars.innerHTML = starsHTML;}
+	else if (k >= 60 && k < 120){'<img src="/images.star.jpg" alt = "Star 1"><img src="/images.star.jpg" alt = "Star 2">'
+			numberOfStars.innerHTML = starsHTML;}
+	else {starsHTML = '<img src="/images.star.jpg" alt = "Star">'
+			numberOfStars.innerHTML = starsHTML;}
 
 const card_1 = document.getElementsByClassName('1');
 const card_2 = document.getElementsByClassName('2');
@@ -83,11 +131,17 @@ let match_14 = 'closed';
 let match_15 = 'closed';
 let match_16 = 'closed';
 
+let open = function (a){
+	
+	a = document.createElement('span');
+	a.innerHTML = 'Card Up';
+	card_1.appendChild(a.innerHTML);
+}
+
 let flip = function (x, y, z){
 
 
-	x[0].classList.remove('card_down');
-	y = 'open'; 
+	x[0].classList.remove('card_down'); 
 	setTimeout(function(){
 		if (z !== 'open'){
 			y = 'closed';}}, 5000);
@@ -98,7 +152,14 @@ let flip = function (x, y, z){
 
 card_1[0].addEventListener('click', function(){
 	
-	flip(card_1, match_1, match_9)
+	match_1 = 'open';
+	card_1[0].classList.remove('card_down');
+		setTimeout(function(){
+		if (match_9 !== 'open'){
+			match_1 = 'closed';}}, 5000);
+	setTimeout(function(){
+		if (match_9 !== 'open'){
+			card_1[0].classList.add('card_down');}}, 5000);
 });
 
 card_2[0].addEventListener('click', function(){
@@ -138,7 +199,14 @@ card_8[0].addEventListener('click', function(){
 
 card_9[0].addEventListener('click', function(){
 	
-	flip(card_9, match_9, match_1)
+	match_9 = 'open';
+	card_9[0].classList.remove('card_down');
+		setTimeout(function(){
+		if (match_1 !== 'open'){
+			match_9 = 'closed';}}, 5000);
+	setTimeout(function(){
+		if (match_1 !== 'open'){
+			card_9[0].classList.add('card_down');}}, 5000);
 });
 
 card_10[0].addEventListener('click', function(){
@@ -175,3 +243,4 @@ card_16[0].addEventListener('click', function(){
 	
 	flip(card_16, match_16, match_8)
 });
+
