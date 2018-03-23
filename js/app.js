@@ -1,20 +1,20 @@
 let listOfCards = [
 	[1, 'images/detail.jpg','closed', 1],
-	[2, 'images/bentley.jpg', 'closed', 2],
-	[3, 'images/black.jpg', 'closed', 3],
-	[4, 'images/ferrari.jpg', 'closed', 4],
-	[5, 'images/plymouth.jpg', 'closed', 5],
-	[6, 'images/red.jpg', 'closed', 6],
-	[7, 'images/silver.jpg', 'closed', 7],
-	[8, 'images/white.jpg', 'closed', 8],
-	[9, 'images/detail.jpg', 'closed', 1],
-	[10, 'images/bentley.jpg', 'closed', 2],
-	[11, 'images/black.jpg', 'closed', 3],
-	[12, 'images/ferrari.jpg', 'closed', 4],
-	[13, 'images/plymouth.jpg', 'closed', 5],
-	[14, 'images/red.jpg', 'closed', 6],
-	[15, 'images/silver.jpg', 'closed', 7],
-	[16, 'images/white.jpg', 'closed', 8]
+	[2, 'images/detail.jpg', 'closed', 1],
+	[3, 'images/bentley.jpg', 'closed', 2],
+	[4, 'images/bentley.jpg', 'closed', 2],
+	[5, 'images/black.jpg', 'closed', 3],
+	[6, 'images/black.jpg', 'closed', 3],
+	[7, 'images/ferrari.jpg', 'closed', 4],
+	[8, 'images/ferrari.jpg', 'closed', 4],
+	[9, 'images/plymouth.jpg', 'closed', 5],
+	[10, 'images/plymouth.jpg', 'closed', 5],
+	[11, 'images/red.jpg', 'closed', 6],
+	[12, 'images/red.jpg', 'closed', 6],
+	[13, 'images/silver.jpg', 'closed', 7],
+	[14, 'images/silver.jpg', 'closed', 7],
+	[15, 'images/white.jpg', 'closed', 8],
+	[16, 'images/white.jpg', 'closed', 8],	
 ];
 
 
@@ -23,7 +23,7 @@ let j = '';
 let k =  0;
 let l = '';
 let c = '';
-let logic = '';
+
 let deckOfCards = document.getElementById('deck_of_cards');
 let listLength = listOfCards.length;
 let cardsHtml =  '<div class = "row">';
@@ -47,6 +47,7 @@ function shuffle(array) {
 
 let sec = 0;
 let min = 0;
+let timerStarted = false;
 let stopWatch = function (){
 	if (sec < 9) { sec = sec + 1;
 		timer.innerHTML = min + ':0' + sec;}
@@ -60,19 +61,23 @@ let stopWatch = function (){
 
 
 let repeat = function  (){
-	setInterval('stopWatch()', 1000);
+	if (timerStarted !== true) {setInterval('stopWatch()', 1000);}
 }
 
-deckOfCards.addEventListener('click', repeat);
+deckOfCards.addEventListener('click', repeat)
+if (timerStarted === true) {deckOfCards.removeEventListener('click', repeat)};
+deckOfCards.addEventListener('click', function(){
+	timerStarted = true;
+})
 
 listOfCards=shuffle(listOfCards);
 
  for (i=0; i < listOfCards.length; i++){			
 	 
-	 cardsHtml += '<div class= "card col-3"><div id ="'+ listOfCards[i][0] +'" class = "card_down f"> <img class= "car" src="'+ listOfCards[i][1] + '"></div></div>';
+	 cardsHtml += '<div class= "card col-3"><div id ="'+ listOfCards[i][0] +'" class = "card_down"> <img class= "car" src="'+ listOfCards[i][1] + '"></div></div>';
 
 	 deckOfCards.innerHTML = cardsHtml;
-		
+	
 }
 
 let resetButton = document.getElementById('resetButton');
@@ -87,7 +92,10 @@ let numberOfStars= document.getElementById('numberOfStars');
 
 let count = function () { 
 	k = k + 1
-	console.log(k);
+	
+	 card = event.target;
+	  console.log("card: ", card);
+  console.log("classList: ", card.classList);
 }
 
 deckOfCards.addEventListener('click', count);
@@ -106,26 +114,35 @@ deckOfCards.addEventListener('click', starsIfElse);
 
 
 
-let flip = function (x, y, z){
+let logic = function (x, y){
+	y = x+1;
 	
-	z = document.getElementById('1');
+	document.getElementById(x).classList.replace('card_down', 'card_up');
+	setTimeout(function(x, y){
+		if(document.getElementById(y).classList.contains('card_up') !== true){
+		document.getElementById(x).classList.replace('card_up', 'card_down');
+		}  
+	}, 5000);
+};
 
-	z.addEventListener('click', function(){
-	listOfCards[x][2]='open';
-	z.classList.remove('card_down');
+	
+
+
+for ( l= 1; l < 17 ; l+=2 ){
+
+temp = l+1;
+
+document.getElementById(l).addEventListener('click', logic)};
+
+for ( l= 2; l < 17 ; l+=2 ){
+
+temp = l-1;
+
+document.getElementById(l).addEventListener('click', function(){
+	document.getElementById(l).classList.replace('card_down', 'card_up');
 	setTimeout(function(){
-		if(listOfCards[x][2] != listOfCards[y][2]){
-			z.classList.add('card_down');
-			listOfCards[x][2] = 'closed' }}, 5000);
-		});}
-	
-
-
-for ( l= 1; l < 9; l++){
-
-	
-	card_name = document.getElementById(l);
-	temp =(l + 8);
-logic += flip (l, temp, card_name)};
-
-
+		if(document.getElementById(temp).classList.contains('card_up') !== true){
+		document.getElementById(l).classList.replace('card_up', 'card_down');
+		}  
+	}, 5000);
+})};
