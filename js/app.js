@@ -95,13 +95,13 @@ deckOfCards.addEventListener('click', count);
 let starsIfElse = function (){
 	if (k < 5){starsHTML = '<img class= "stars" src="images/star.jpg" alt = "Star 1"><img class= "stars" src="images/star.jpg" alt = "Star 2"><img class= "stars" src="images/star.jpg" alt = "Star ">'
 			numberOfStars.innerHTML = starsHTML;}
-	else if (k >= 5 && k < 10){'<img class= "stars" src="images/star.jpg" alt = "Star 1"><img class= "stars" src="images/star.jpg" alt = "Star 2">'
+	else if (k >= 5 && k < 10){starsHTML ='<img class= "stars" src="images/star.jpg" alt = "Star 1"><img class= "stars" src="images/star.jpg" alt = "Star 2">'
 			numberOfStars.innerHTML = starsHTML;}
 	else {starsHTML = '<img class= "stars" src="images/star.jpg" alt = "Star">'
 			numberOfStars.innerHTML = starsHTML;};
 }
 
-setInterval(starsIfElse, 1);
+deckOfCards.addEventListener('click', starsIfElse);
 
 
 
