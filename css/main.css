@@ -11,8 +11,19 @@
 
 .stats {
 
-	padding-left: 100px;
-	justify-content: right;	
+	display: flex;
+	justify-content: center;
+}
+
+#numberOfStars{
+
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+#timer {
+
+	
 
 }
 
@@ -26,6 +37,18 @@
 
 	padding-right: 100px;
 	padding-left: 100px;
+	display: flex;
+	justify-content: center;
+
+}
+
+.container_cards{
+
+	max-width: 450px;
+	display: flex;
+	justify-content: center;
+
+
 }
 
 .card {

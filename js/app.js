@@ -26,7 +26,7 @@ let c = '';
 
 let deckOfCards = document.getElementById('deck_of_cards');
 let listLength = listOfCards.length;
-let cardsHtml =  '<div class = "row">';
+let cardsHtml =  '<div class = "row container_cards">';
 let timerValue = '';
 let timer = document.getElementById('timer');
 
@@ -76,9 +76,11 @@ listOfCards=shuffle(listOfCards);
 	 
 	 cardsHtml += '<div class= "card col-3"><div id ="'+ listOfCards[i][0] +'" class = "card_down"> <img class= "car" src="'+ listOfCards[i][1] + '"></div></div>';
 
-	 deckOfCards.innerHTML = cardsHtml;
-	
 }
+
+
+deckOfCards.innerHTML = cardsHtml;
+
 
 let resetButton = document.getElementById('resetButton');
 
@@ -92,10 +94,6 @@ let numberOfStars= document.getElementById('numberOfStars');
 
 let count = function () { 
 	k = k + 1
-	
-	 card = event.target;
-	  console.log("card: ", card);
-  console.log("classList: ", card.classList);
 }
 
 deckOfCards.addEventListener('click', count);
@@ -114,35 +112,34 @@ deckOfCards.addEventListener('click', starsIfElse);
 
 
 
-let logic = function (x, y){
+
+let getElementX1 =	'';
+
+for ( x= 1; x < 17 ; x+=2 )	{ 
+
 	y = x+1;
-	
-	document.getElementById(x).classList.replace('card_down', 'card_up');
-	setTimeout(function(x, y){
-		if(document.getElementById(y).classList.contains('card_up') !== true){
-		document.getElementById(x).classList.replace('card_up', 'card_down');
-		}  
-	}, 5000);
-};
-
-	
+	getElementX1 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+y+').classList.contains("card_up") !== true){document.getElementById('+x+').classList.replace( "card_up" , "card_down")};}, 5000)});'}
 
 
-for ( l= 1; l < 17 ; l+=2 ){
+let getElementX2 = '';
 
-temp = l+1;
+for ( x= 16; x > 0 ; x-=2 ) {
 
-document.getElementById(l).addEventListener('click', logic)};
+	y = x-1
+	getElementX2 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+y+').classList.contains("card_up") !== true){document.getElementById('+x+').classList.replace( "card_up" , "card_down")};}, 5000)});'}
 
-for ( l= 2; l < 17 ; l+=2 ){
+let odd = eval(getElementX1);
+let even = eval(getElementX2);
 
-temp = l-1;
+let log = function (){
 
-document.getElementById(l).addEventListener('click', function(){
-	document.getElementById(l).classList.replace('card_down', 'card_up');
-	setTimeout(function(){
-		if(document.getElementById(temp).classList.contains('card_up') !== true){
-		document.getElementById(l).classList.replace('card_up', 'card_down');
-		}  
-	}, 5000);
-})};
+	odd;
+	even;
+}
+
+
+
+deckOfCards.addEventListener('click', function(){
+	log;
+})
+
