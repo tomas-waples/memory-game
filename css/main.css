@@ -1,6 +1,9 @@
 .body {
 
-	background-color: grey;
+	background-image: url('blue-1.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 
 }
 
@@ -17,12 +20,41 @@
 
 #numberOfStars{
 
-	padding-left: 25px;
-	padding-right: 25px;
+	padding-bottom: 15px;
+}
+
+.reset{
+
+	padding-top: 20px;
+
+}
+
+.resetButton{
+
+	height: 60px;
+	width: 85px;
+	background-color: gray;
+	border: groove;
+	border-color: black;
+	font-weight: bold;
+
+}
+
+.clickCountButton{
+
+	height: 60px;
+	width: 85px;
+	background-color: gray;
+	border: groove;
+	border-color: black;
+	font-weight: bold;
 }
 
 #timer {
 
+	height: 50px;
+	font-weight: bold;
+	font-size: 1.75em;
 	
 
 }
@@ -54,11 +86,15 @@
 .card {
 	max-width: 100px;
 	max-height: 100px;
-	background-color: lightblue;
+	background-image: url('stainless1.jpg') ;
 	margin-right: 5px;
 	margin-top: 5px;
 	padding-right: 0px;
 	padding-left: 0px;
+	display: flex;
+	justify-content: center;
+	border: groove;
+	border-color: black;
 
 }
 
@@ -80,11 +116,24 @@
 .car{
 	height: 100px;
 	width: 100px; 
+	min-width: 50px;
 	padding-top: 0px;
+	display: flex;
+	justify-content: center;
+	border: groove;
+	border-color: black;
+
 
 }
+
+
 .card_down{
 	
 	opacity: 0;
 
+}
+
+.modal{
+
+	visibility: visible;
 }
