@@ -70,7 +70,8 @@ let stopWatch = function (){
 // Thining of using the .insertRule to make the chagne directly, but thought I would check to see if there as a beter way to do this
 // I'm also mayby 50% on this and may just take it out.
 		document.body.style.backgroundImage = "url('css/blue-1(r).jpg')";}
-	else{ timer.innerHTML = min + ':' + sec; };}
+	else{ if (sec < 10) {timer.innerHTML = min + ':0' + sec;}
+		else {timer.innerHTML = min + ':' + sec;};}}
 			
 			
 
@@ -237,3 +238,8 @@ let modal_show = function(){
 
 deckOfCards.addEventListener('click', modal_show);
 
+$('#deck_of_cards').on('click', function(e) {
+  if('#deck_of_cards').hasClass('win') {
+    $('#myModal').modal('show');
+  }
+});
