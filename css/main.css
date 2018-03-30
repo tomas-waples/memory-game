@@ -83,6 +83,7 @@
 
 }
 
+
 .card {
 	max-width: 100px;
 	max-height: 100px;
@@ -96,22 +97,62 @@
 	border: groove;
 	border-color: black;
 
+
 }
 
+@media screen and (max-width: 450px){
 
+.card {
+	max-width: 70px;
+	max-height: 70px;
+	min-width: 65px;
+	min-height: 65px;
+	background-image: url('stainless1.jpg') ;
+	margin-right: 5px;
+	margin-top: 5px;
+	padding-right: 0px;
+	padding-left: 0px;
+	display: flex;
+	justify-content: center;
+	border: groove;
+	border-color: black;
+}
+}
 
 .card_up{
 	width: 100px;
 	height: 100px;
+	-webkit-transition: all 1.5s ease;
+    -moz-transition: all 1.5s ease;
+    -o-transition: all 1.5s ease;
+    transition: all 1.5s ease;
 }
 
-.fa {
-	
- 	margin: 0px;
- 	vertical-align: middle;
- 	
+@media screen and (max-width: 450px){
 
+.card_up{
+	width: 65px;
+	height: 65px;
+	-webkit-transition: all 1.5s ease;
+    -moz-transition: all 1.5s ease;
+    -o-transition: all 1.5s ease;
+    transition: all 1.5s ease;
 }
+}
+
+.match {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: ;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
 
 .car{
 	height: 100px;
@@ -126,14 +167,33 @@
 
 }
 
+@media screen and (max-width: 450px){
+
+.car{
+	height: 65px;
+	width: 65px; 
+	padding-top: 0px;
+	display: flex;
+	justify-content: center;
+	border: groove;
+	border-color: black;
+}
+}
+
 
 .card_down{
 	
 	opacity: 0;
+	-webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+
 
 }
 
 .modal{
 
 	visibility: visible;
+	opacity: 100;
 }

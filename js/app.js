@@ -146,7 +146,10 @@ let getElementX1 =	'';
 for ( x= 1; x < 17 ; x+=2 )	{ 
 
 	y = x+1;
-	getElementX1 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+y+').classList.contains("card_up") !== true){document.getElementById('+x+').classList.replace( "card_up" , "card_down")};}, 5000)});'}
+	getElementX1 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+
+	x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+
+	y+').classList.contains("card_up") !== true){document.getElementById('+
+	x+').classList.replace( "card_up" , "card_down")}else{document.getElementById('+x+').classlist.add("match");document.getElementById('+y+').classlist.add("match")}}, 4000)});'}
 
 
 let getElementX2 = '';
@@ -154,7 +157,10 @@ let getElementX2 = '';
 for ( x= 16; x > 0 ; x-=2 ) {
 
 	y = x-1
-	getElementX2 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+y+').classList.contains("card_up") !== true){document.getElementById('+x+').classList.replace( "card_up" , "card_down")};}, 5000)});'}
+	getElementX2 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+
+	x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+
+	y+').classList.contains("card_up") !== true){document.getElementById('+
+	x+').classList.replace( "card_up" , "card_down")}else{document.getElementById('+x+').classlist.add("match");document.getElementById('+y+').classlist.add("match")}}, 4000)});'}
 
 let odd = eval(getElementX1);
 let even = eval(getElementX2);
@@ -216,12 +222,12 @@ buildCardStatusArrayPHrep();
 setInterval('win()', 500);
 
 modal_text = '';
-let modal = new Modal({ el: document.getElementById('modal')});
+let modal = document.getElementById('modal')
 let modal_content = function(){
 
 	modal_text = '<div id = myModal class = "modal fade"> <div class = "modal-content"><div class="modal-header"> congradulations </div><div class="modal-body">You Have Won!  It took you '
 				+ totalClicks + ' moves and ' + min + ' minets and ' + sec +' secounds.  You have been awarded'
-				+ starsHTML + '</div></div></div>';
+				+ starsHTML + '</div></div>';
 
 	modal.innerHTML = modal_text;
 	
@@ -233,13 +239,10 @@ let modal_show = function(){
 
 	modal_content();
 	deckOfCards.classList.add('win');
+	document.getElementById('modal').style.display='block';
 }
 };
 
 deckOfCards.addEventListener('click', modal_show);
 
-$('#deck_of_cards').on('click', function(e) {
-  if('#deck_of_cards').hasClass('win') {
-    $('#myModal').modal('show');
-  }
-});
+
