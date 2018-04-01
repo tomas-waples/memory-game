@@ -16,27 +16,52 @@
 </head>
 <body class="body">
 	<div class="containter-fluid">
-		<div class="row stats">
+		<div id = top-stats class="row stats">
 			<div id= timer class="info">  </div>
 		</div>
 		<div class="row stats">
 			<div id= numberOfStars>	</div>
-		</div>		
+		</div>	
+
+	</div>
+	<div class modal-container>
+		<div id = modal class = "modal "> 
+			
+				<div id = modal-header class="row  modal-header"> <h1>congratulations</h1> 
+				</div>					
+
+				<div id = modal-body class="row  modal-body">You Have Won!</br>It took you <span id=totalClicks>	</span> clicks and you have completed the game in <span id=min></span>:<span id = sec> </span><span id = secounds></span> </br>You have been awarded: <div id= numberOfStarsModal></div>
+				</div> 
+ 
+				<div id = modal-footer class = "modal-footer"> 
+					<div id= resetButtonModal>
+						<button type="button"  class="info resetButton"> Play Again? </button>  
+					</div>       
+	     		</div>
+	     </div> 
 	</div>
 
 	<div id=deck_of_cards class="containter-fluid deck_of_cards">
+
+
+			
+		</div>'
+		
 	
-		</div>           
-     </div>
+		
 	<div class="containter-fluid">
-			<div class="row stats reset">
+			<div id = bottom-stats class="row stats reset">
 				<div id= click_count></div>
 				<div id= resetButton  class="info"> 
 					<button type="button"  class="info resetButton"> Reset </button>
 				</div>
 			</div>
 	</div>
-	<div id= modal> </div>		
+	<div id=images>
+		<img src="css/blue-1.jpg">
+		<img src="css/red.jpg">
+	</div>
+		
 </body>
 
 

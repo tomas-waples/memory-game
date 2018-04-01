@@ -1,20 +1,20 @@
 let listOfCards = [
-	[1, 'images/detail.jpg', false , 1],
-	[2, 'images/detail.jpg', false , 1],
-	[3, 'images/bentley.jpg', false , 2],
-	[4, 'images/bentley.jpg', false , 2],
-	[5, 'images/black.jpg', false , 3],
-	[6, 'images/black.jpg', false , 3],
-	[7, 'images/ferrari.jpg', false , 4],
-	[8, 'images/ferrari.jpg', false , 4],
-	[9, 'images/plymouth.jpg', false , 5],
-	[10, 'images/plymouth.jpg', false , 5],
-	[11, 'images/red.jpg', false , 6],
-	[12, 'images/red.jpg', false , 6],
-	[13, 'images/silver.jpg', false , 7],
-	[14, 'images/silver.jpg', false , 7],
-	[15, 'images/white.jpg', false , 8],
-	[16, 'images/white.jpg', false, 8],	
+	[1, 'images/detail.jpg'],
+	[2, 'images/detail.jpg'],
+	[3, 'images/bentley.jpg'],
+	[4, 'images/bentley.jpg'],
+	[5, 'images/black.jpg'],
+	[6, 'images/black.jpg'],
+	[7, 'images/ferrari.jpg'],
+	[8, 'images/ferrari.jpg'],
+	[9, 'images/plymouth.jpg'],
+	[10, 'images/plymouth.jpg'],
+	[11, 'images/red.jpg'],
+	[12, 'images/red.jpg'],
+	[13, 'images/silver.jpg'],
+	[14, 'images/silver.jpg'],
+	[15, 'images/white.jpg'],
+	[16, 'images/white.jpg'],	
 ];
 
 
@@ -45,7 +45,7 @@ function shuffle(array) {
 }
 
 
-let sec = 55;
+let sec = 0;
 let min = 0;
 let timerStarted = false;
 let stopWatch = function (){
@@ -66,10 +66,7 @@ let stopWatch = function (){
 		min = min + 1;
 		timer.innerHTML = min + 'min';
 		sec = sec + 1;		
-// I'm not sure why this is having trouble loading.  My guess is that it has to add to HTML, load the image and than repain?
-// Thining of using the .insertRule to make the chagne directly, but thought I would check to see if there as a beter way to do this
-// I'm also mayby 50% on this and may just take it out.
-		document.body.style.backgroundImage = "url('css/blue-1(r).jpg')";}
+		document.body.style.backgroundImage = "url('css/red.jpg')";}
 	else{ if (sec < 10) {timer.innerHTML = min + ':0' + sec;}
 		else {timer.innerHTML = min + ':' + sec;};}}
 			
@@ -111,12 +108,17 @@ deckOfCards.innerHTML = cardsHtml;
 
 
 let resetButton = document.getElementById('resetButton');
+let resetButtonModal = document.getElementById('resetButtonModal');
 
 resetButton.onclick= reloadPage;
+resetButtonModal.onclick= reloadPage;
+
 
 function reloadPage(){
 	window.location.reload();
 }
+
+
 let starHTML='';
 let numberOfStars= document.getElementById('numberOfStars');
 
@@ -127,9 +129,9 @@ let count = function () {
 deckOfCards.addEventListener('click', count);
 
 let starsIfElse = function (){
-	if (k < 5){starsHTML = '<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i>'
+	if (k < 25){starsHTML = '<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i>'
 			numberOfStars.innerHTML = starsHTML;}
-	else if (k >= 5 && k < 10){starsHTML ='<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x">'
+	else if (k >= 25 && k < 50){starsHTML ='<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x">'
 			numberOfStars.innerHTML = starsHTML;}
 	else {starsHTML = '<i class="fas fa-star fa-3x"></i>'
 			numberOfStars.innerHTML = starsHTML;};
@@ -149,7 +151,7 @@ for ( x= 1; x < 17 ; x+=2 )	{
 	getElementX1 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+
 	x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+
 	y+').classList.contains("card_up") !== true){document.getElementById('+
-	x+').classList.replace( "card_up" , "card_down")}else{document.getElementById('+x+').classlist.add("match");document.getElementById('+y+').classlist.add("match")}}, 4000)});'}
+	x+').classList.replace( "card_up" , "card_down")}}, 1500)});'}
 
 
 let getElementX2 = '';
@@ -160,7 +162,7 @@ for ( x= 16; x > 0 ; x-=2 ) {
 	getElementX2 += 'document.getElementById('+x+').addEventListener("click", function(){document.getElementById('+
 	x+').classList.replace("card_down", "card_up"); setTimeout(function(){if(document.getElementById('+
 	y+').classList.contains("card_up") !== true){document.getElementById('+
-	x+').classList.replace( "card_up" , "card_down")}else{document.getElementById('+x+').classlist.add("match");document.getElementById('+y+').classlist.add("match")}}, 4000)});'}
+	x+').classList.replace( "card_up" , "card_down")}}, 1500)});'}
 
 let odd = eval(getElementX1);
 let even = eval(getElementX2);
@@ -222,14 +224,19 @@ buildCardStatusArrayPHrep();
 setInterval('win()', 500);
 
 modal_text = '';
-let modal = document.getElementById('modal')
+let modal = document.getElementById('modal');
+let modal_header = document.getElementById('modal-header');
+let modal_body = document.getElementById('modal-body');
+let secHTML = document.getElementById('sec');
+let minHTML = document.getElementById('min');
+let numberOfStarsModal = document.getElementById('numberOfStarsModal');
+let totalClicksHTML = document.getElementById('totalClicks');
 let modal_content = function(){
 
-	modal_text = '<div id = myModal class = "modal fade"> <div class = "modal-content"><div class="modal-header"> congradulations </div><div class="modal-body">You Have Won!  It took you '
-				+ totalClicks + ' moves and ' + min + ' minets and ' + sec +' secounds.  You have been awarded'
-				+ starsHTML + '</div></div>';
-
-	modal.innerHTML = modal_text;
+	secHTML.innerHTML = sec;
+	minHTML.innerHTML = min;
+	totalClicksHTML.innerHTML = totalClicks;
+	numberOfStarsModal.innerHTML = starsHTML;
 	
 }
 
@@ -239,10 +246,15 @@ let modal_show = function(){
 
 	modal_content();
 	deckOfCards.classList.add('win');
-	document.getElementById('modal').style.display='block';
+	modal.style.display='block';
+	modal_header.style.display='block';
+	modal_body.style.display='block';
+	document.getElementById('top-stats').style.display='none';
+	document.getElementById('bottom-stats').style.display='none';
+	document.getElementById('numberOfStars').style.display='none';
 }
 };
 
-deckOfCards.addEventListener('click', modal_show);
+setInterval('modal_show()',500);
 
 

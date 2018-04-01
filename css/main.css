@@ -7,15 +7,22 @@
 
 }
 
+#images{
+
+	display: none;
+}
+
 .stars {
 	max-height: 50px;
 	max-width: 50px;
+	min-height: 50px;
 }
 
 .stats {
 
 	display: flex;
 	justify-content: center;
+	min-height: 63px;
 }
 
 #numberOfStars{
@@ -192,8 +199,46 @@
 
 }
 
+
 .modal{
 
-	visibility: visible;
-	opacity: 100;
+	display: none;
+	position: fixed;
+	
+	max-width: 510px; 
+    height: 320px;
+    z-index: 1;
+	top: 0;
+	margin: auto;
+	background-color: gray;
+	
+	
+	border-style: groove;
+	border-color: black;
+
 }
+.modal-header{
+
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	border:gray;
+
+}
+.modal-body{
+
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.modal-footer{
+
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	border: gray;
+}
+
