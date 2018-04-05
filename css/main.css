@@ -207,13 +207,31 @@
 }
 
 
-.modal{
+.modal-win{
 
 	display: none;
 	position: fixed;
 	
 	max-width: 510px; 
     height: 320px;
+    z-index: 1;
+	top: 0;
+	margin: auto;
+	background-color: gray;
+	
+	
+	border-style: groove;
+	border-color: black;
+
+}
+
+.modal-start{
+
+	display: block;
+	position: fixed;
+	
+	max-width: 510px; 
+    height: 200px;
     z-index: 1;
 	top: 0;
 	margin: auto;

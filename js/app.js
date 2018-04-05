@@ -26,7 +26,7 @@ let timer = document.getElementById('timer');
 let sec = 0;
 let min = 0;
 let timerStarted = false;
-let stopWatch = function (){
+let stopWatch = () => {
 	
   if (sec === 0 && min === 0 && gameEnd !== true)
     {{timer.innerHTML = min + ':0' + sec;
@@ -46,18 +46,20 @@ let stopWatch = function (){
 	sec = sec + 1;		
 	document.body.style.backgroundImage = "url('css/red.jpg')";}
   else{ if (sec < 10) {timer.innerHTML = min + ':0' + sec;}
-	else {timer.innerHTML = min + ':' + sec;};}};
+  else {timer.innerHTML = min + ':' + sec;};}};
 
 // setting an interval on Timer function so it runs continuously   			
 
-let repeat = function  (){
+let repeat = () => {
   if (timerStarted !== true && gameEnd !== true) {setInterval('stopWatch()', 1000);}
 };
 
 //setting Timer on page
 
 let deckOfCards = document.getElementById('deck_of_cards');
+
 deckOfCards.addEventListener('click', repeat);
+
 if (timerStarted === true) {
   deckOfCards.removeEventListener('click', repeat)};
   deckOfCards.addEventListener('click', function(){
@@ -71,7 +73,7 @@ if (timerStarted === true) {
 let starHTML='';
 let numberOfStars= document.getElementById('numberOfStars');
 let totalClicks = 0;
-let clickCount = function(){
+let clickCount = () => {
 
   if(cardlimmitSum<2){
   totalClicks = totalClicks + 1;
@@ -79,9 +81,10 @@ let clickCount = function(){
   document.getElementById('click_count').innerHTML = z;
 }
   else{totalClicks = totalClicks}};
+
 deckOfCards.addEventListener('click', clickCount);
 
-let starsIfElse = function (){
+let starsIfElse = () => {
 	
 	if (totalClicks < 25){starsHTML = '<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i>'
 			numberOfStars.innerHTML = starsHTML;}
@@ -148,7 +151,7 @@ let cardLimmit = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 cardlimmitSum = 0;
 
-let cardlimmitFunction = function(){
+let cardlimmitFunction = () => {
 
 	cardlimmitSum =0;
 	for(c=0; c<cardLimmit.length; c++){
@@ -159,22 +162,46 @@ let cardlimmitFunction = function(){
 
 // setting an interval on function so it runs continuously
 
-setInterval('cardlimmitFunction()',1);
+setInterval(() => {cardlimmitFunction(),1});
+
 let getElementX1 =	'';
 let x = '';
+let interval = 1500;
+
+const MODAL_START = document.getElementById('modal-start');
+const EASY_BUTTON = document.getElementById('easy-button');
+const REGULAR_BUTTON = document.getElementById('regular-button');
+const HARD_BUTTON = document.getElementById('hard-button');
+
+
+EASY_BUTTON.addEventListener('click', function(){
+	interval=2500;
+	MODAL_START.style.display = 'none';
+});
+REGULAR_BUTTON.addEventListener('click', function(){
+	MODAL_START.style.display = 'none';
+});
+HARD_BUTTON.addEventListener('click', function(){
+	interval=500;
+	MODAL_START.style.display = 'none';
+});
+
 
 //creating functions to add eventListners and govern behavior of cards when clicked
 
 
 
-for ( x= 1; x < 16 ; x+=2 )	{ 
+let card_set1 = () => {
+	{for ( x= 1; x < 16 ; x+=2 ){ 
 
   y = x+1;
   getElementX1 += 'document.getElementById('+x+').addEventListener("click", function(){'+
   'if(cardlimmitSum<2){document.getElementById('+x+').classList.replace("card_down", "card_up");cardLimmit['+x+']=1;getElementX1Flip = true;'+
   'if(document.getElementById('+y+').classList.contains("card_up") === true){cardLimmit['+x+']=0;}else{setTimeout(function(){if(document.getElementById('+y
   +').classList.contains("card_up") !== true){'+
-  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, 1500)}}});'};
+  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, '+interval+')}}});'};}}
+
+setTimeout(MODAL_START.addEventListener('click', card_set1()), 1000);
 
 
 let getElementX2 = '';
@@ -186,14 +213,15 @@ for ( x= 16; x > 0 ; x-=2 ) {
   'if(cardlimmitSum<2){document.getElementById('+x+').classList.replace("card_down", "card_up");cardLimmit['+x+']=1;getElementX2Flip = true;'+
   'if(document.getElementById('+y+').classList.contains("card_up") === true){cardLimmit['+x+']=0;}else{setTimeout(function(){if(document.getElementById('+y
   +').classList.contains("card_up") !== true){'+
-  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, 1500)}}});'};
+  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, '+interval+')}}});'};
 
 // using eval only to convert string into JSON
 
 let odd = eval(getElementX1);
 let even = eval(getElementX2);
 
-let log = function (){
+let log = () => {
+
 
 	odd;
 	even;
@@ -211,7 +239,7 @@ let gameEnd = false;
 
 //creating an array to test if class of each card is equal to 'card-up'
 
-let buildCardStatusArrayPH = function (){
+let buildCardStatusArrayPH = () => {
 
 	cardStatusArray = [];
 
@@ -225,17 +253,18 @@ let buildCardStatusArrayPH = function (){
 
 // setting function to run continuously 
 
-let buildCardStatusArrayPHrep = function (){
+let buildCardStatusArrayPHrep = () => {
 
-	setInterval ('buildCardStatusArrayPH()', 500);
+	setInterval(()=>{buildCardStatusArrayPH()}, 500);
+	
 };
 
-let winCondition = function(element){
+let winCondition = (element) => {
 	return element === 'card_up';
 };
 
 // creating a function to test victory conditions
-let win = function(){
+let win = () =>{
 	
 	if (cardStatusArray.every(winCondition) === true){
 	gameEnd = true;
@@ -244,7 +273,8 @@ let win = function(){
 
 buildCardStatusArrayPHrep();
 
-setInterval('win()', 500);
+setInterval(()=>{win()}, 500);
+
 //launching modal when win is met
 modal_text = '';
 let modal = document.getElementById('modal');
@@ -257,10 +287,10 @@ let numberOfStarsModal = document.getElementById('numberOfStarsModal');
 //adding number of clicks to modal
 let totalClicksHTML = document.getElementById('totalClicks');
 //adding time to the modal
-let modal_content = function(){
+let modal_content = () => {
 
   if(sec < 10){secHTML.innerHTML = '0'+sec;}
-  else{secHTML=sec;};
+  else{secHTML.innerHTML=sec;}
 
   minHTML.innerHTML = min;
   totalClicksHTML.innerHTML = totalClicks;
@@ -269,7 +299,7 @@ let modal_content = function(){
 }
 //setting styling for main page after modal launch
 
-let modal_show = function(){
+let modal_show = () => {
 
 	if (gameEnd === true){
 
@@ -284,4 +314,4 @@ let modal_show = function(){
 }
 };
 
-setInterval('modal_show()',500);
+setInterval(()=>{modal_show()}, 500);
