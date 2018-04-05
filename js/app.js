@@ -20,7 +20,7 @@ let listOfCards  =  [
 ];
 
 
-// Timer argument
+// building Timer
 let timerValue = '';
 let timer = document.getElementById('timer');
 let sec = 0;
@@ -47,32 +47,54 @@ let stopWatch = function (){
 	document.body.style.backgroundImage = "url('css/red.jpg')";}
   else{ if (sec < 10) {timer.innerHTML = min + ':0' + sec;}
 	else {timer.innerHTML = min + ':' + sec;};}};
-			
+
+// setting an interval on Timer function so it runs continuously   			
+
 let repeat = function  (){
   if (timerStarted !== true && gameEnd !== true) {setInterval('stopWatch()', 1000);}
 };
+
+//setting Timer on page
+
 let deckOfCards = document.getElementById('deck_of_cards');
 deckOfCards.addEventListener('click', repeat);
-
-
-//creating click counter
 if (timerStarted === true) {
   deckOfCards.removeEventListener('click', repeat)};
   deckOfCards.addEventListener('click', function(){
   timerStarted = true;
 })
 
+//creating click counter and setting it on page and tying it to the card flipping array to prevent clicks that do not result
+//in card flips from counting against you
+// creating stars as well as argument to determine how many there are
+
+let starHTML='';
+let numberOfStars= document.getElementById('numberOfStars');
 let totalClicks = 0;
 let clickCount = function(){
 
+  if(cardlimmitSum<2){
   totalClicks = totalClicks + 1;
-  y = '<button type="button"  class="info clickCountButton">' + totalClicks + ' Moves </button>';
-  document.getElementById('click_count').innerHTML = y;
+  z = '<button type="button"  class="info clickCountButton">' + totalClicks + ' Moves </button>';
+  document.getElementById('click_count').innerHTML = z;
 }
-deckOfCards.addEventListener('click', clickCount)
+  else{totalClicks = totalClicks}};
+deckOfCards.addEventListener('click', clickCount);
+
+let starsIfElse = function (){
+	
+	if (totalClicks < 25){starsHTML = '<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i>'
+			numberOfStars.innerHTML = starsHTML;}
+	else if (totalClicks >= 25 && totalClicks < 50){starsHTML ='<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x">'
+			numberOfStars.innerHTML = starsHTML;}
+	else {starsHTML = '<i class="fas fa-star fa-3x"></i>'
+			numberOfStars.innerHTML = starsHTML;};
+}
+
+deckOfCards.addEventListener('click', starsIfElse);
 
 
-//randomizing the array of cards, and looping over the array to create the HTML for the cards,
+//randomizing the array of cards
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -91,6 +113,8 @@ listOfCards=shuffle(listOfCards);
 
 let cardsHtml = '<div class = "row container_cards">';
 let listLength = listOfCards.length;
+
+//looping through randomized array and creating HTML to set on page
 
   for (i=0; i < listOfCards.length; i++){			
 	 
@@ -114,42 +138,43 @@ function reloadPage(){
 };
 
 
-let starHTML='';
-let numberOfStars= document.getElementById('numberOfStars');
-let k = 0;
-
-let count = function () { 
-	k = k + 1
-}
-
-// creating stars as well as argument to determine how many there are
-deckOfCards.addEventListener('click', count);
-
-let starsIfElse = function (){
-	if (k < 25){starsHTML = '<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i>'
-			numberOfStars.innerHTML = starsHTML;}
-	else if (k >= 25 && k < 50){starsHTML ='<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x">'
-			numberOfStars.innerHTML = starsHTML;}
-	else {starsHTML = '<i class="fas fa-star fa-3x"></i>'
-			numberOfStars.innerHTML = starsHTML;};
-}
-
-deckOfCards.addEventListener('click', starsIfElse);
-
-
 
 
 // creating argument for 'flipping' and matching cards.
+//array and loop to insure no more than two cards are 'up' at one time
+
+let cardLimmit = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+
+cardlimmitSum = 0;
+
+let cardlimmitFunction = function(){
+
+	cardlimmitSum =0;
+	for(c=0; c<cardLimmit.length; c++){
+		cardlimmitSum += cardLimmit[c];
+	}
+
+};
+
+// setting an interval on function so it runs continuously
+
+setInterval('cardlimmitFunction()',1);
 let getElementX1 =	'';
 let x = '';
 
-for ( x= 1; x < 17 ; x+=2 )	{ 
+//creating functions to add eventListners and govern behavior of cards when clicked
+
+
+
+for ( x= 1; x < 16 ; x+=2 )	{ 
 
   y = x+1;
   getElementX1 += 'document.getElementById('+x+').addEventListener("click", function(){'+
-  'document.getElementById('+x+').classList.replace("card_down", "card_up");'+
-  'setTimeout(function(){if(document.getElementById('+y+').classList.contains("card_up") !== true){'+
-  'document.getElementById('+x+').classList.replace( "card_up" , "card_down")}}, 1500)});'};
+  'if(cardlimmitSum<2){document.getElementById('+x+').classList.replace("card_down", "card_up");cardLimmit['+x+']=1;getElementX1Flip = true;'+
+  'if(document.getElementById('+y+').classList.contains("card_up") === true){cardLimmit['+x+']=0;}else{setTimeout(function(){if(document.getElementById('+y
+  +').classList.contains("card_up") !== true){'+
+  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, 1500)}}});'};
 
 
 let getElementX2 = '';
@@ -157,10 +182,13 @@ let getElementX2 = '';
 for ( x= 16; x > 0 ; x-=2 ) {
 
   y = x-1;
-  getElementX2 += 'document.getElementById('+x+').addEventListener("click", function(){' +
-  'document.getElementById('+x+').classList.replace("card_down", "card_up");'+
-  'setTimeout(function(){if(document.getElementById('+y+').classList.contains("card_up") !== true){'+
-  'document.getElementById('+x+').classList.replace( "card_up" , "card_down")}}, 1500)});'};
+  getElementX2 += 'document.getElementById('+x+').addEventListener("click", function(){'+
+  'if(cardlimmitSum<2){document.getElementById('+x+').classList.replace("card_down", "card_up");cardLimmit['+x+']=1;getElementX2Flip = true;'+
+  'if(document.getElementById('+y+').classList.contains("card_up") === true){cardLimmit['+x+']=0;}else{setTimeout(function(){if(document.getElementById('+y
+  +').classList.contains("card_up") !== true){'+
+  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, 1500)}}});'};
+
+// using eval only to convert string into JSON
 
 let odd = eval(getElementX1);
 let even = eval(getElementX2);
@@ -171,16 +199,17 @@ let log = function (){
 	even;
 }
 
-
-
 deckOfCards.addEventListener('click', function(){
 	log;
 })
 
+//setting victory conditions
 let a = 1;
 let cardStatusArray = [];
 let cardStatusArrayPH = '';
 let gameEnd = false;
+
+//creating an array to test if class of each card is equal to 'card-up'
 
 let buildCardStatusArrayPH = function (){
 
@@ -193,7 +222,8 @@ let buildCardStatusArrayPH = function (){
 	
 }
 }
-//setting victory conditions
+
+// setting function to run continuously 
 
 let buildCardStatusArrayPHrep = function (){
 
@@ -204,6 +234,7 @@ let winCondition = function(element){
 	return element === 'card_up';
 };
 
+// creating a function to test victory conditions
 let win = function(){
 	
 	if (cardStatusArray.every(winCondition) === true){
@@ -214,15 +245,18 @@ let win = function(){
 buildCardStatusArrayPHrep();
 
 setInterval('win()', 500);
-//launching modal
+//launching modal when win is met
 modal_text = '';
 let modal = document.getElementById('modal');
 let modal_header = document.getElementById('modal-header');
 let modal_body = document.getElementById('modal-body');
 let secHTML = document.getElementById('sec');
 let minHTML = document.getElementById('min');
+//adding stars to modal
 let numberOfStarsModal = document.getElementById('numberOfStarsModal');
+//adding number of clicks to modal
 let totalClicksHTML = document.getElementById('totalClicks');
+//adding time to the modal
 let modal_content = function(){
 
   if(sec < 10){secHTML.innerHTML = '0'+sec;}
@@ -233,7 +267,8 @@ let modal_content = function(){
   numberOfStarsModal.innerHTML = starsHTML;
 	
 }
-//setting styling at modal launch
+//setting styling for main page after modal launch
+
 let modal_show = function(){
 
 	if (gameEnd === true){
@@ -250,5 +285,3 @@ let modal_show = function(){
 };
 
 setInterval('modal_show()',500);
-
-
