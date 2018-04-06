@@ -22,31 +22,31 @@ let listOfCards  =  [
 
 // building Timer
 let timerValue = '';
-let timer = document.getElementById('timer');
+const TIMER = document.getElementById('timer');
 let sec = 0;
 let min = 0;
 let timerStarted = false;
 let stopWatch = () => {
 	
   if (sec === 0 && min === 0 && gameEnd !== true)
-    {{timer.innerHTML = min + ':0' + sec;
+    {{TIMER.innerHTML = min + ':0' + sec;
     sec = sec + 1;}
     document.body.style.backgroundImage = "url('css/blue-1.jpg')";}
   else if (sec < 10 && gameEnd !== true) 
-	{timer.innerHTML = min + ':0' + sec;
+	{TIMER.innerHTML = min + ':0' + sec;
 	sec = sec + 1;
 	document.body.style.backgroundImage = "url('css/blue-1.jpg')";}
   else if (sec < 60 && gameEnd !== true)
-	{timer.innerHTML = min + ':' + sec;
+	{TIMER.innerHTML = min + ':' + sec;
 	sec = sec + 1;}		
   else if ( min < 100 && gameEnd !== true) 
 	{sec = 0;
 	min = min + 1;
-	timer.innerHTML = min + 'min';
+	TIMER.innerHTML = min + 'min';
 	sec = sec + 1;		
 	document.body.style.backgroundImage = "url('css/red.jpg')";}
-  else{ if (sec < 10) {timer.innerHTML = min + ':0' + sec;}
-  else {timer.innerHTML = min + ':' + sec;};}};
+  else{ if (sec < 10) {TIMER.innerHTML = min + ':0' + sec;}
+  else {TIMER.innerHTML = min + ':' + sec;};}};
 
 // setting an interval on Timer function so it runs continuously   			
 
@@ -56,13 +56,13 @@ let repeat = () => {
 
 //setting Timer on page
 
-let deckOfCards = document.getElementById('deck_of_cards');
+const DECK_OF_CARDS = document.getElementById('deck_of_cards');
 
-deckOfCards.addEventListener('click', repeat);
+DECK_OF_CARDS.addEventListener('click', repeat);
 
 if (timerStarted === true) {
-  deckOfCards.removeEventListener('click', repeat)};
-  deckOfCards.addEventListener('click', function(){
+  DECK_OF_CARDS.removeEventListener('click', repeat)};
+  DECK_OF_CARDS.addEventListener('click', function(){
   timerStarted = true;
 })
 
@@ -71,7 +71,7 @@ if (timerStarted === true) {
 // creating stars as well as argument to determine how many there are
 
 let starHTML='';
-let numberOfStars= document.getElementById('numberOfStars');
+let NUMBER_OF_STARS= document.getElementById('numberOfStars');
 let totalClicks = 0;
 let clickCount = () => {
 
@@ -82,19 +82,19 @@ let clickCount = () => {
 }
   else{totalClicks = totalClicks}};
 
-deckOfCards.addEventListener('click', clickCount);
+DECK_OF_CARDS.addEventListener('click', clickCount);
 
 let starsIfElse = () => {
 	
 	if (totalClicks < 25){starsHTML = '<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x"></i>'
-			numberOfStars.innerHTML = starsHTML;}
+			NUMBER_OF_STARS.innerHTML = starsHTML;}
 	else if (totalClicks >= 25 && totalClicks < 50){starsHTML ='<i class="fas fa-star fa-3x"></i><i class="fas fa-star fa-3x">'
-			numberOfStars.innerHTML = starsHTML;}
+			NUMBER_OF_STARS.innerHTML = starsHTML;}
 	else {starsHTML = '<i class="fas fa-star fa-3x"></i>'
-			numberOfStars.innerHTML = starsHTML;};
+			NUMBER_OF_STARS.innerHTML = starsHTML;};
 }
 
-deckOfCards.addEventListener('click', starsIfElse);
+DECK_OF_CARDS.addEventListener('click', starsIfElse);
 
 
 //randomizing the array of cards
@@ -115,7 +115,7 @@ function shuffle(array) {
 listOfCards=shuffle(listOfCards);
 
 let cardsHtml = '<div class = "row container_cards">';
-let listLength = listOfCards.length;
+
 
 //looping through randomized array and creating HTML to set on page
 
@@ -125,16 +125,16 @@ cardsHtml += '<div class= "card col-3"><div id ="'+ listOfCards[i][0] +'" class 
 ' <img class= "car" src="'+ listOfCards[i][1] + '"></div></div>';
 };
 
-deckOfCards.innerHTML = cardsHtml;
+DECK_OF_CARDS.innerHTML = cardsHtml;
 
 
 //create reset button for both in game, and modal
 
-let resetButton = document.getElementById('resetButton');
-let resetButtonModal = document.getElementById('resetButtonModal');
+const RESET_BUTTON = document.getElementById('resetButton');
+const RESET_BUTTON_MODAL = document.getElementById('resetButtonModal');
 
-resetButton.onclick= reloadPage;
-resetButtonModal.onclick= reloadPage;
+RESET_BUTTON.onclick= reloadPage;
+RESET_BUTTON_MODAL.onclick= reloadPage;
 
 function reloadPage(){
 	window.location.reload();
@@ -166,7 +166,7 @@ setInterval(() => {cardlimmitFunction(),1});
 
 let getElementX1 =	'';
 let x = '';
-let interval = 1500;
+let interval = 2000;
 
 const MODAL_START = document.getElementById('modal-start');
 const EASY_BUTTON = document.getElementById('easy-button');
@@ -174,34 +174,25 @@ const REGULAR_BUTTON = document.getElementById('regular-button');
 const HARD_BUTTON = document.getElementById('hard-button');
 
 
-EASY_BUTTON.addEventListener('click', function(){
-	interval=2500;
-	MODAL_START.style.display = 'none';
-});
-REGULAR_BUTTON.addEventListener('click', function(){
-	MODAL_START.style.display = 'none';
-});
-HARD_BUTTON.addEventListener('click', function(){
-	interval=500;
-	MODAL_START.style.display = 'none';
-});
+
 
 
 //creating functions to add eventListners and govern behavior of cards when clicked
 
 
 
-let card_set1 = () => {
-	{for ( x= 1; x < 16 ; x+=2 ){ 
+let	getElementX = '';
+
+	for ( x= 1; x < 16 ; x+=2 ){ 
 
   y = x+1;
   getElementX1 += 'document.getElementById('+x+').addEventListener("click", function(){'+
   'if(cardlimmitSum<2){document.getElementById('+x+').classList.replace("card_down", "card_up");cardLimmit['+x+']=1;getElementX1Flip = true;'+
   'if(document.getElementById('+y+').classList.contains("card_up") === true){cardLimmit['+x+']=0;}else{setTimeout(function(){if(document.getElementById('+y
   +').classList.contains("card_up") !== true){'+
-  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, '+interval+')}}});'};}}
+  'document.getElementById('+x+').classList.replace( "card_up" , "card_down");cardLimmit['+x+']=0;}else{cardLimmit['+x+']=0;}}, '+interval+')}}});'};
 
-setTimeout(MODAL_START.addEventListener('click', card_set1()), 1000);
+
 
 
 let getElementX2 = '';
@@ -227,7 +218,7 @@ let log = () => {
 	even;
 }
 
-deckOfCards.addEventListener('click', function(){
+DECK_OF_CARDS.addEventListener('click', function(){
 	log;
 })
 
@@ -277,24 +268,24 @@ setInterval(()=>{win()}, 500);
 
 //launching modal when win is met
 modal_text = '';
-let modal = document.getElementById('modal');
-let modal_header = document.getElementById('modal-header');
-let modal_body = document.getElementById('modal-body');
-let secHTML = document.getElementById('sec');
-let minHTML = document.getElementById('min');
+const MODAL = document.getElementById('modal');
+const MODAL_HEADER = document.getElementById('modal-header');
+const MODAL_BODY = document.getElementById('modal-body');
+const SEC_HTML = document.getElementById('sec');
+const MIN_HTML = document.getElementById('min');
 //adding stars to modal
-let numberOfStarsModal = document.getElementById('numberOfStarsModal');
+const NUMBER_OF_STARS_MODAL = document.getElementById('numberOfStarsModal');
 //adding number of clicks to modal
-let totalClicksHTML = document.getElementById('totalClicks');
+const TOTAL_CLICKS_HTML = document.getElementById('totalClicks');
 //adding time to the modal
 let modal_content = () => {
 
-  if(sec < 10){secHTML.innerHTML = '0'+sec;}
-  else{secHTML.innerHTML=sec;}
+  if(sec < 10){SEC_HTML.innerHTML = '0'+sec;}
+  else{SEC_HTML.innerHTML=sec;}
 
-  minHTML.innerHTML = min;
-  totalClicksHTML.innerHTML = totalClicks;
-  numberOfStarsModal.innerHTML = starsHTML;
+  MIN_HTML.innerHTML = min;
+  TOTAL_CLICKS_HTML.innerHTML = totalClicks;
+  NUMBER_OF_STARS_MODAL.innerHTML = starsHTML;
 	
 }
 //setting styling for main page after modal launch
@@ -304,13 +295,13 @@ let modal_show = () => {
 	if (gameEnd === true){
 
 	modal_content();
-	deckOfCards.classList.add('win');
-	modal.style.display='block';
-	modal_header.style.display='block';
-	modal_body.style.display='block';
+	DECK_OF_CARDS.classList.add('win');
+	MODAL.style.display='block';
+	MODAL_HEADER.style.display='block';
+	MODAL_BODY.style.display='block';
 	document.getElementById('top-stats').style.display='none';
 	document.getElementById('bottom-stats').style.display='none';
-	document.getElementById('numberOfStars').style.display='none';
+	NUMBER_OF_STARS.style.display='none';
 }
 };
 
